@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="ch.makery.caltrackr.view.DailyViewController"
+      spacing="10" styleClass="daily-view">
+    <padding>
+        <Insets top="10" bottom="10" left="10" right="10"/>
+    </padding>
+
+    <!-- Daily Summary Card -->
+    <GridPane styleClass="summary-card" hgap="10" vgap="5">
+        <Label text="Today's Summary" styleClass="section-header"
+               GridPane.columnIndex="0" GridPane.columnSpan="2"/>
+
+        <Label text="Calories:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+        <Label fx:id="caloriesLabel" text="0/2000" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+        <Label text="Protein:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+        <Label fx:id="proteinLabel" text="0g" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+        <Label text="Carbs:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+        <Label fx:id="carbsLabel" text="0g" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+
+        <Label text="Fat:" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+        <Label fx:id="fatLabel" text="0g" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+    </GridPane>
+
+    <!-- Meal Sections -->
+    <VBox spacing="5">
+        <Label text="Breakfast" styleClass="meal-header"/>
+        <TableView fx:id="breakfastTable" VBox.vgrow="ALWAYS" prefHeight="100">
+            <columns>
+                <TableColumn fx:id="bNameColumn" text="Food"/>
+                <TableColumn fx:id="bCaloriesColumn" text="Cal"/>
+                <TableColumn fx:id="bProteinColumn" text="Protein"/>
+            </columns>
+        </TableView>
+        <Button text="+ Add Food" onAction="#handleAddBreakfast" styleClass="add-food-button"/>
+    </VBox>
+
+    <VBox spacing="5">
+        <Label text="Lunch" styleClass="meal-header"/>
+        <TableView fx:id="lunchTable" VBox.vgrow="ALWAYS" prefHeight="100">
+            <columns>
+                <TableColumn fx:id="lNameColumn" text="Food"/>
+                <TableColumn fx:id="lCaloriesColumn" text="Cal"/>
+                <TableColumn fx:id="lProteinColumn" text="Protein"/>
+            </columns>
+        </TableView>
+        <Button text="+ Add Food" onAction="#handleAddLunch" styleClass="add-food-button"/>
+    </VBox>
+
+    <VBox spacing="5">
+        <Label text="Dinner" styleClass="meal-header"/>
+        <TableView fx:id="dinnerTable" VBox.vgrow="ALWAYS" prefHeight="100">
+            <columns>
+                <TableColumn fx:id="dNameColumn" text="Food"/>
+                <TableColumn fx:id="dCaloriesColumn" text="Cal"/>
+                <TableColumn fx:id="dProteinColumn" text="Protein"/>
+            </columns>
+        </TableView>
+        <Button text="+ Add Food" onAction="#handleAddDinner" styleClass="add-food-button"/>
+    </VBox>
+</VBox>
