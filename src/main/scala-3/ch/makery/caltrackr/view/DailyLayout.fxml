@@ -5,7 +5,7 @@
 <?import javafx.geometry.Insets?>
 
 <VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="ch.makery.caltrackr.view.DailyViewController"
+      fx:controller="ch.makery.caltrackr.view.DailyLayoutController"
       spacing="10" styleClass="daily-view">
     <padding>
         <Insets top="10" bottom="10" left="10" right="10"/>
