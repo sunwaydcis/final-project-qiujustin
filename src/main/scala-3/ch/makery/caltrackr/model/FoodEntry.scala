@@ -1,23 +1,20 @@
 package ch.makery.caltrackr.model
 
-import ch.makery.caltrackr.FoodEntry
-import ch.makery.caltrackr.model.FoodEntry
-import scalafx.beans.property.{DoubleProperty, ObjectProperty, StringProperty}
-
+import scalafx.beans.property.{StringProperty, ObjectProperty, DoubleProperty}
 import java.time.LocalDateTime
 
 class FoodEntry(nameS: String, caloriesD: Double):
-  var name = new StringProperty(nameS)
-  var calories = new ObjectProperty[Double](caloriesD)
-  var protein = new ObjectProperty[Double](0.0)
-  var carbs = new ObjectProperty[Double](0.0)
-  var fat = new ObjectProperty[Double](0.0)
-  var servingSize = new ObjectProperty[Double](100.0) // in grams
-  var dateTime = ObjectProperty[LocalDateTime](LocalDateTime.now())
-  var mealType = new StringProperty("Snack") // Breakfast, Lunch, Dinner, Snack
-  var notes = new StringProperty("")
+  var name = StringProperty(nameS)
+  var calories = DoubleProperty(caloriesD)
+  var protein = DoubleProperty(0.0)
+  var carbs = DoubleProperty(0.0)
+  var fat = DoubleProperty(0.0)
+  var servingSize = DoubleProperty(100.0)
+  var dateTime = ObjectProperty(LocalDateTime.now())
+  var mealType = StringProperty("Snack")
+  var notes = StringProperty("")
 
-  // Computed property for macronutrient distribution
+  // Computed property for nutrient distribution
   def macroRatio: String =
     val total = protein.value + carbs.value + fat.value
     if total == 0 then "0/0/0"
@@ -26,6 +23,17 @@ class FoodEntry(nameS: String, caloriesD: Double):
       val cRatio = (carbs.value / total * 100).round
       val fRatio = (fat.value / total * 100).round
       s"$pRatio/$cRatio/$fRatio"
+
+  // Property methods for JavaFX bindings
+  def nameProperty = name
+  def caloriesProperty = calories
+  def proteinProperty = protein
+  def carbsProperty = carbs
+  def fatProperty = fat
+  def servingSizeProperty = servingSize
+  def dateTimeProperty = dateTime
+  def mealTypeProperty = mealType
+  def notesProperty = notes
 
 end FoodEntry
 
@@ -45,4 +53,7 @@ object FoodEntry:
       fat.value = fatD
       servingSize.value = servingSizeD
       mealType.value = mealTypeS
+
+  def apply(nameS: String, caloriesD: Double): FoodEntry =
+    new FoodEntry(nameS, caloriesD)
 end FoodEntry

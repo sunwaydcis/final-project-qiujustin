@@ -9,6 +9,9 @@ import javafx.event.ActionEvent
 import java.time.LocalDateTime
 import scalafx.collections.ObservableBuffer
 import scala.jdk.CollectionConverters._
+import scalafx.beans.property.DoubleProperty
+import scalafx.beans.property.StringProperty
+import scalafx.beans.value.ObservableValue
 
 class DailyLayoutController:
   @FXML private val caloriesLabel: Label = null
@@ -19,36 +22,42 @@ class DailyLayoutController:
   // Breakfast table
   @FXML private val breakfastTable: TableView[FoodEntry] = null
   @FXML private val bNameColumn: TableColumn[FoodEntry, String] = null
-  @FXML private val bCaloriesColumn: TableColumn[FoodEntry, Double] = null
-  @FXML private val bProteinColumn: TableColumn[FoodEntry, Double] = null
+  @FXML private val bCaloriesColumn: TableColumn[FoodEntry, Number] = null
+  @FXML private val bProteinColumn: TableColumn[FoodEntry, Number] = null
 
   // Lunch table
   @FXML private val lunchTable: TableView[FoodEntry] = null
   @FXML private val lNameColumn: TableColumn[FoodEntry, String] = null
-  @FXML private val lCaloriesColumn: TableColumn[FoodEntry, Double] = null
-  @FXML private val lProteinColumn: TableColumn[FoodEntry, Double] = null
+  @FXML private val lCaloriesColumn: TableColumn[FoodEntry, Number] = null
+  @FXML private val lProteinColumn: TableColumn[FoodEntry, Number] = null
 
   // Dinner table
   @FXML private val dinnerTable: TableView[FoodEntry] = null
   @FXML private val dNameColumn: TableColumn[FoodEntry, String] = null
-  @FXML private val dCaloriesColumn: TableColumn[FoodEntry, Double] = null
-  @FXML private val dProteinColumn: TableColumn[FoodEntry, Double] = null
+  @FXML private val dCaloriesColumn: TableColumn[FoodEntry, Number] = null
+  @FXML private val dProteinColumn: TableColumn[FoodEntry, Number] = null
 
   def initialize(): Unit =
     // Initialize breakfast table
-    bNameColumn.cellValueFactory = {_.value.name}
-    bCaloriesColumn.cellValueFactory = {_.value.calories}
-    bProteinColumn.cellValueFactory = {_.value.protein}
+    bNameColumn.setCellValueFactory(cellData => cellData.getValue.name)
+    bCaloriesColumn.setCellValueFactory(cellData =>
+      cellData.getValue.calories.delegate)
+    bProteinColumn.setCellValueFactory(cellData =>
+      cellData.getValue.protein.delegate)
 
     // Initialize lunch table
-    lNameColumn.cellValueFactory = {_.value.name}
-    lCaloriesColumn.cellValueFactory = {_.value.calories}
-    lProteinColumn.cellValueFactory = {_.value.protein}
+    lNameColumn.setCellValueFactory(cellData => cellData.getValue.name)
+    lCaloriesColumn.setCellValueFactory(cellData =>
+      cellData.getValue.calories.delegate)
+    lProteinColumn.setCellValueFactory(cellData =>
+      cellData.getValue.protein.delegate)
 
     // Initialize dinner table
-    dNameColumn.cellValueFactory = {_.value.name}
-    dCaloriesColumn.cellValueFactory = {_.value.calories}
-    dProteinColumn.cellValueFactory = {_.value.protein}
+    dNameColumn.setCellValueFactory(cellData => cellData.getValue.name)
+    dCaloriesColumn.setCellValueFactory(cellData =>
+      cellData.getValue.calories.delegate)
+    dProteinColumn.setCellValueFactory(cellData =>
+      cellData.getValue.protein.delegate)
 
     updateTables()
     updateSummary()
@@ -76,18 +85,15 @@ class DailyLayoutController:
 
   private def updateSummary(): Unit =
     val today = LocalDateTime.now().toLocalDate
-    // Convert filtered list to Scala collection
     val todayEntries = MainApp.foodEntries
       .filtered(_.dateTime.value.toLocalDate == today)
-      .asScala.toSeq // Convert to Scala Seq
+      .asScala.toSeq
 
-    // Perform calculations
     val totalCals = todayEntries.map(_.calories.value).sum
     val totalProtein = todayEntries.map(_.protein.value).sum
     val totalCarbs = todayEntries.map(_.carbs.value).sum
     val totalFat = todayEntries.map(_.fat.value).sum
 
-    // Update UI labels
     caloriesLabel.setText(f"$totalCals%.0f/${MainApp.dailyCalorieGoal}")
     proteinLabel.setText(f"$totalProtein%.1fg")
     carbsLabel.setText(f"$totalCarbs%.1fg")

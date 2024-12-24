@@ -1,4 +1,4 @@
-package address.model
+package ch.makery.caltrackr.model
 
 import scalafx.beans.property.{StringProperty, IntegerProperty,
   ObjectProperty}

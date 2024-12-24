@@ -1,4 +1,4 @@
-
+package ch.makery.caltrackr
 
 import scalafx.application.JFXApp3
 import scalafx.application.JFXApp3.PrimaryStage
@@ -9,8 +9,8 @@ import scalafx.Includes._
 import javafx.scene.{Scene => JFXScene}
 import javafx.fxml.FXMLLoader
 
-import FoodEntry
-import ch.makery.address.view.DailyLayoutController
+import ch.makery.caltrackr.model.FoodEntry
+import ch.makery.caltrackr.view.DailyLayoutController
 
 object MainApp extends JFXApp3:
   // Data
@@ -19,7 +19,7 @@ object MainApp extends JFXApp3:
 
   // Scene/stage references
   private var rootScene: Scene = null
-  private var dailyViewController: DailyLayoutController = null
+  private var dailyLayoutController: DailyLayoutController = null
 
   override def start(): Unit =
     // Load root layout
@@ -27,9 +27,9 @@ object MainApp extends JFXApp3:
     val rootPane = loader.load[javafx.scene.layout.BorderPane]
 
     // Load daily view into center
-    val dailyLoader = new FXMLLoader(getClass.getResource("view/DailyView.fxml"))
-    rootPane.setCenter(dailyLoader.load[javafx.scene.layout.VBox])
-    dailyViewController = dailyLoader.getController[DailyLayoutController]
+    val dailyLoader = new FXMLLoader(getClass.getResource("view/DailyLayout.fxml"))
+      rootPane.setCenter(dailyLoader.load[javafx.scene.layout.VBox])
+    dailyLayoutController = dailyLoader.getController[DailyLayoutController]
 
     // Create scene
     stage = new PrimaryStage:
