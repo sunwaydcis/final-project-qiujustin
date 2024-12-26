@@ -11,6 +11,9 @@ import javafx.event.ActionEvent
 import scalafx.collections.ObservableBuffer
 import scala.util.{Success, Failure}
 import scalafx.beans.property.StringProperty
+import java.util.Optional
+import scala.jdk.javaapi.OptionConverters.*
+import scala.jdk.OptionConverters.RichOptional
 
 class TaskOverviewController:
   @FXML private var taskTable: TableView[Task] = null
@@ -44,13 +47,13 @@ class TaskOverviewController:
     taskTable.setItems(filteredData)
 
   def handleNewTask(action: ActionEvent) =
-    val dialog = javafx.scene.control.TextInputDialog("New Task")
+    val dialog = new javafx.scene.control.TextInputDialog("New Task")
     dialog.setHeaderText("Enter task title")
     dialog.setContentText("Title:")
 
-    val result = dialog.showAndWait()
-    result match
-      case Some(taskTitle: String) if taskTitle.nonEmpty =>
+    val result: Optional[String] = dialog.showAndWait()
+    result.toScala match
+      case Some(taskTitle) if taskTitle.nonEmpty =>
         val task = new Task(taskTitle)
         task.save() match
           case Success(_) =>

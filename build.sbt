@@ -8,7 +8,7 @@ lazy val root = (project in file("."))
     name := "introtosclafx",
     libraryDependencies ++= {
       // Determine OS version of JavaFX binaries
-      val osName = System.getProperty("os.name") match {
+      val osName = System.getProperty("win") match {
         case n if n.startsWith("Linux")   => "linux"
         case n if n.startsWith("Mac")     => "mac"
         case n if n.startsWith("Windows") => "win"
@@ -21,8 +21,12 @@ lazy val root = (project in file("."))
       "org.scalikejdbc" %% "scalikejdbc" % "4.3.0",
       "com.h2database" % "h2" % "2.2.224",
       "org.apache.derby" % "derby" % "10.17.1.0",
-      "org.apache.derby" % "derbytools" % "10.17.1.0")
+      "org.apache.derby" % "derbytools" % "10.17.1.0",
+      "org.slf4j" % "slf4j-simple" % "2.0.13")
   )
+    javaOptions ++= Seq(
+      "--add-modules", "javafx.controls,javafx.fxml"
+    )
 //enable for sbt-assembly
 //assembly / assemblyMergeStrategy := {
 //  case PathList("META-INF", xs @ _*) => MergeStrategy.discard // Discard all META-INF files
