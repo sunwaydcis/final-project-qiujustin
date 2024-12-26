@@ -8,7 +8,7 @@ lazy val root = (project in file("."))
     name := "introtosclafx",
     libraryDependencies ++= {
       // Determine OS version of JavaFX binaries
-      val osName = System.getProperty("win") match {
+      val osName = System.getProperty("os.name") match {
         case n if n.startsWith("Linux")   => "linux"
         case n if n.startsWith("Mac")     => "mac"
         case n if n.startsWith("Windows") => "win"

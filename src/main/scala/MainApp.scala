@@ -9,6 +9,7 @@ import javafx.{scene => jfxs}
 import javafx.fxml.FXMLLoader
 import ch.makery.taskmanager.model.Task
 import ch.makery.taskmanager.util.Database
+import scalafx.scene.image.Image
 
 object MainApp extends JFXApp3:
   // Tasks data
@@ -26,6 +27,8 @@ object MainApp extends JFXApp3:
 
     stage = new PrimaryStage:
       title = "Task Manager"
+      icons += new Image(getClass.getResource(
+        "/images/icon.png").toExternalForm)
       scene = new Scene:
         root = loadRootLayout()
 
