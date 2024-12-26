@@ -1,4 +1,4 @@
-package ch.taskmanager
+package ch.makery.taskmanager
 
 import scalafx.application.JFXApp3
 import scalafx.application.JFXApp3.PrimaryStage
