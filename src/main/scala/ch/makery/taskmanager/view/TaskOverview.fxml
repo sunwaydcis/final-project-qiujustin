@@ -33,12 +33,14 @@
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             </rowConstraints>
                             <children>
                                 <Button mnemonicParsing="false" onAction="#handleNewTask" prefHeight="25.0" prefWidth="170.0" text="New Task" />
                                 <Button mnemonicParsing="false" onAction="#handleDeleteTask" prefHeight="25.0" prefWidth="170.0" text="Delete Task" GridPane.rowIndex="1" />
-                                <Button mnemonicParsing="false" onAction="#handleToggleComplete" prefHeight="25.0" prefWidth="170.0" text="Toggle Complete" GridPane.rowIndex="2" />
-                                <ComboBox fx:id="filterComboBox" prefHeight="25.0" prefWidth="170.0" promptText="Filter Tasks" GridPane.rowIndex="3" />
+                                <Button mnemonicParsing="false" onAction="#handleMarkImportant" prefHeight="25.0" prefWidth="170.0" text="Mark as Important" GridPane.rowIndex="2" />
+                                <Button mnemonicParsing="false" onAction="#handleToggleComplete" prefHeight="25.0" prefWidth="170.0" text="Mark as Complete" GridPane.rowIndex="3" />
+                                <ComboBox fx:id="filterComboBox" prefHeight="25.0" prefWidth="170.0" promptText="Filter Tasks" GridPane.rowIndex="4" />
                             </children>
                         </GridPane>
                     </children>

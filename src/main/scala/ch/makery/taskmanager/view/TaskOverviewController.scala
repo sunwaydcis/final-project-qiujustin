@@ -89,6 +89,28 @@ class TaskOverviewController:
         contentText = "Please select a task in the table."
       alert.showAndWait()
 
+  def handleMarkImportant(action: ActionEvent) =
+    val selectedTasks = taskTable.selectionModel().selectedItem.value
+    if selectedTasks != null then
+      selectedTasks.priority.value = if selectedTasks.priority.value == "Normal" then "Important" else "Normal"
+      selectedTasks.save() match
+        case Success(_) =>
+          taskTable.refresh()
+        case Failure(e) =>
+          val alert = new Alert(AlertType.Error):
+            initOwner(MainApp.stage)
+            title = "Database Error"
+            headerText = "Could not update task"
+            contentText = e.getMessage
+          alert.showAndWait()
+    else
+      val alert = new Alert(AlertType.Warning):
+        initOwner(MainApp.stage)
+        title = "No Selection"
+        headerText = "No Task Selected"
+        contentText = "Please select a task in the table."
+      alert.showAndWait()
+
   def handleToggleComplete(action: ActionEvent) =
     val selectedTask = taskTable.selectionModel().selectedItem.value
     if selectedTask != null then
